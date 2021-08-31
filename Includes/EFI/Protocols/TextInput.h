@@ -33,10 +33,10 @@ typedef struct EFI_Protocol_Text_Input_Key
     uint16_t unicode_character;
 } EFI_Protocol_Text_Input_Key;
 
-typedef struct EFI_ProtocolText_Input EFI_ProtocolText_Input;
+typedef struct EFI_Protocol_Text_Input EFI_Protocol_Text_Input;
 
-typedef EFI_Status (*EFI_Protocol_Text_Input_Reset_Function)(struct EFI_ProtocolText_Input* self, bool extended_verification);
-typedef EFI_Status (*EFI_Protocol_Text_Input_Read_Key_Function)(struct EFI_ProtocolText_Input* self, EFI_Protocol_Text_Input_Key* key);
+typedef EFI_Status (*EFI_Protocol_Text_Input_Reset_Function)(struct EFI_Protocol_Text_Input* self, bool extended_verification);
+typedef EFI_Status (*EFI_Protocol_Text_Input_Read_Key_Function)(struct EFI_Protocol_Text_Input* self, EFI_Protocol_Text_Input_Key* key);
 
 typedef struct EFI_Protocol_Text_Input
 {

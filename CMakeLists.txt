@@ -47,7 +47,13 @@ add_executable(kOS.EFI
 add_subdirectory(Other/libc)
 add_dependencies(kOS.EFI kOS.libc)
 
+target_compile_options(kOS.EFI PRIVATE -fshort-wchar)
+target_compile_options(kOS.libc PRIVATE -fshort-wchar)
+
 target_include_directories(kOS.EFI PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Includes)
 
 target_link_options(kOS.EFI PRIVATE -entry:kOS_EFI_main -subsystem:efi_application)
 target_link_libraries(kOS.EFI PRIVATE kOS.libc)
+
+add_custom_command(TARGET kOS.EFI POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:kOS.EFI>/EFI/BOOT)
+add_custom_command(TARGET kOS.EFI POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:kOS.EFI> $<TARGET_FILE_DIR:kOS.EFI>/EFI/BOOT/BOOTx64.efi)
