@@ -17,9 +17,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set(CMAKE_SYSTEM_NAME Generic)
+cmake_minimum_required(VERSION 3.18.0)
 
-cmake_minimum_required(VERSION 3.0.0)
+set(CMAKE_SYSTEM_NAME Generic)
 
 find_program(LLD_LINK NAMES lld-link REQUIRED)
 set(CMAKE_C_LINK_EXECUTABLE "\"${LLD_LINK}\" <OBJECTS> -out:<TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
@@ -47,13 +47,13 @@ add_executable(kOS.EFI
 add_subdirectory(Other/libc)
 add_dependencies(kOS.EFI kOS.libc)
 
-target_compile_options(kOS.EFI PRIVATE -fshort-wchar)
-target_compile_options(kOS.libc PRIVATE -fshort-wchar)
-
+target_compile_options(kOS.libc PUBLIC --target=amd64-pc-win32)
 target_include_directories(kOS.EFI PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Includes)
 
 target_link_options(kOS.EFI PRIVATE -entry:kOS_EFI_main -subsystem:efi_application)
 target_link_libraries(kOS.EFI PRIVATE kOS.libc)
+
+set_target_properties(kOS.EFI PROPERTIES SUFFIX "")
 
 add_custom_command(TARGET kOS.EFI POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:kOS.EFI>/EFI/BOOT)
 add_custom_command(TARGET kOS.EFI POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:kOS.EFI> $<TARGET_FILE_DIR:kOS.EFI>/EFI/BOOT/BOOTx64.efi)
