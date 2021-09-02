@@ -24,14 +24,14 @@ EFI_Status kOS_EFI_main(EFI_Handle handle, EFI_System_Table* table)
     // TODO: this is just crappy test code, implement a full bootloader
 
     table->console_out->string_output(table->console_out, L"kOS EFI Bootloader - v0.0.1");
-    table->console_out->string_output(table->console_out, table->firmware_vendor);
+    table->console_out->string_output(table->console_out, table->firmware_vendor_name);
 
     uint64_t out = 0;
     EFI_Protocol_Text_Input_Key key;
     uint16_t key_message[2] = { '\00', '\00' };
     while (true)
     {
-        table->services_boot->wait_for_event(0, &table->console_in->wait_for_key, &out);
+        table->service_boot->wait_for_event(0, &table->console_in->wait_for_key, &out);
 
         table->console_in->read_key(table->console_in, &key);
 

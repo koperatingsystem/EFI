@@ -32,7 +32,7 @@
 typedef struct EFI_System_Table
 {
     EFI_Table_Header            header;
-    uint16_t*                   firmware_vendor;
+    uint16_t*                   firmware_vendor_name;
     uint32_t                    firmware_revision;
     EFI_Handle                  console_in_handle;
     EFI_Protocol_Text_Input*    console_in;
@@ -41,7 +41,7 @@ typedef struct EFI_System_Table
     EFI_Handle                  error_out_handle;
     EFI_Protocol_Text_Output*   error_out;
     EFI_Service_Runtime*        service_runtime;
-    EFI_Service_Boot*           services_boot;
+    EFI_Service_Boot*           service_boot;
     uint64_t                    count_configuration_entries;
     EFI_Configuration_Table*    configuration;
 } EFI_System_Table;

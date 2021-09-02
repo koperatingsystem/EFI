@@ -19,8 +19,5 @@
 
 #pragma once
 
-#ifdef EFIABI
-#undef EFIABI
-#endif
-
-#define EFIABI
+// TODO: architecture checks are necessary for this, ms_abi only applies to amd64 and friends
+#define EFIABI __attribute__((ms_abi))
